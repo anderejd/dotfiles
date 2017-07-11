@@ -1,0 +1,23 @@
+{
+    "openvim.executablePath": "C:/Program Files (x86)/Vim/vim80/gvim.exe",
+    "rust.formatOnSave": true,
+    "rust.buildArgs": [
+        "--release"
+    ],
+    "rust.runArgs": [
+        "--release"
+    ],
+    "rust.customBuildConfigurations":[
+        {
+            "title": "Debug",
+            "args": []
+        },
+        {
+            "title": "Custom --release",
+            "args": ["--release"]
+        }
+    ],
+    "git.enabled": false,
+    "editor.selectionHighlight": false,
+    "editor.autoClosingBrackets": false
+}

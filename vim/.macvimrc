@@ -1,0 +1,53 @@
+set encoding=utf-8
+
+colorscheme Base2Tone_DrawbridgeDark
+
+" --- Dear Mr. Touchpad, gå och dra något gammalt över dig.
+set mouse=
+
+" --- dont create .swp files please ---
+set noswapfile
+
+" --- Autoformat numbered lists, :help fo-table ---
+set fo+=n
+
+" --- do NOT store options with mksession ---
+set sessionoptions-=options 
+
+" --- Highlight last search :D :D :D ---
+set hlsearch
+
+hi clear StatusLine
+hi clear StatusLineNC
+hi StatusLine   ctermfg=black guifg=#404040 guibg=#171717
+hi StatusLineNC ctermfg=black guifg=#404040 guibg=#171717
+
+" hi Comment guifg=#777777 guibg=NONE hi VertSplit guibg=NONE
+set fillchars+=vert:\ 
+" highlight ColorColumn term=reverse ctermbg=NONE cterm=underline guibg=#181A1A
+"hi clear ColorColumn
+"set colorcolumn=81
+hi ColorColumn guibg=#181A1A
+
+" --- Color column on/off ---
+let colorColumnIsOn = 0
+function! ToggleColorColumn()
+    if g:colorColumnIsOn
+        let g:colorColumnIsOn = 0
+        set colorcolumn=
+    else
+        let g:colorColumnIsOn = 1
+        set colorcolumn=81
+    endif
+endfunction
+
+nnoremap <C-L> :call ToggleColorColumn()<CR>
+
+" --- macvim gui settings ---
+if has("gui_running")
+  set guioptions=
+  set transparency=5
+  autocmd GUIEnter * set vb t_vb=
+  autocmd GUIEnter * set noerrorbells
+endif
+

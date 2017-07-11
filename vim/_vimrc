@@ -1,0 +1,214 @@
+"----------------------
+" VUNDLE CONFIG - BEGIN
+"----------------------
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=$HOME/vimfiles/bundle/Vundle.vim/
+"set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin('$USERPROFILE/vimfiles/bundle/')
+"call vundle#begin()
+
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+"Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+"Plugin 'L9'
+" Git plugin not hosted on GitHub
+"Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+"Plugin 'ascenator/L9', {'name': 'newL9'}
+
+Plugin 'rust-lang/rust.vim'
+Plugin 'racer-rust/vim-racer'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+"----------------------
+" VUNDLE CONFIG - END
+"----------------------
+
+set encoding=utf-8 "
+set autoindent
+"set expandtab
+set noexpandtab
+set nowrap
+set ruler
+set shiftwidth=8
+set smartindent
+set tabstop=8
+
+" --- dont create .swp files please ---
+set noswapfile
+
+" --- Windows fix (?) ---
+set bs=2
+
+" --- GVIM settings ---
+set guioptions-=T
+set guioptions-=m
+set guioptions-=l
+set guioptions-=r
+set guioptions-=L
+set guioptions-=R
+
+" Autoformat numbered lists, :help fo-table
+set fo+=n
+
+set sessionoptions-=options " do NOT store options with mksession
+" set autochdir
+set ignorecase
+set laststatus=2
+
+" --- Avoids updating the screen before commands are completed ---
+set lazyredraw
+
+" --- Remap navigation commands to center view on cursor using zz ---
+nnoremap <C-U> 11kzz
+nnoremap <C-D> 11jzz
+set scroll=11
+nnoremap <C-U> <C-U>zz
+nnoremap <C-D> <C-D>zz
+nnoremap j gjzz
+nnoremap k gkzz
+nnoremap # #zz
+nnoremap * *zz
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap G Gzz
+nnoremap gg ggzz
+nnoremap <C-I> <C-I>zz
+nnoremap <C-O> <C-O>zz
+nnoremap gD gDzz
+nnoremap gd gdzz
+nnoremap % %zz
+nnoremap w wzz
+nnoremap W Wzz
+nnoremap b bzz
+nnoremap B Bzz
+nnoremap { {zz
+nnoremap } }zz
+nnoremap [ [zz
+nnoremap ] ]zz
+nnoremap ( (zz
+nnoremap ) )zz
+
+vnoremap y ygv<ESC>
+vnoremap p pgvy<ESC>
+
+nnoremap , @@
+
+set iskeyword+=-
+
+" --- insert newline while remaining in normal mode ---
+"map <S-Enter> O<Esc>
+"map <CR> o<Esc>
+
+" --- Reset search to remove highlight --- does not work, fix properly
+" nnoremap <C-S> /Will_nEveR_be_FOuND<CR>i<ESC>
+
+syntax on
+filetype on
+au! BufNewFile,BufRead *.as set filetype=javascript
+au! BufNewFile,BufRead *.go set filetype=go
+
+augroup filetypedetect 
+  au! BufRead,BufNewFile *.ms	 setf maxscript 
+augroup END 
+
+function! SetActiveBufferDefaults()
+    setlocal cursorline
+    match Conditional /[(){}\][]/
+endfunction
+
+augroup CursorLine
+  au!
+  "au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au VimEnter,WinEnter,BufWinEnter * call SetActiveBufferDefaults()
+  "au VimEnter,WinEnter,BufWinEnter * setlocal cursorcolumn
+  au WinLeave * setlocal nocursorline
+  "au WinLeave * setlocal nocursorcolumn
+augroup END
+
+" set background=light
+"colorscheme molokai
+colorscheme monokai_mod
+"colorscheme solarized
+"set guifont=Consolas:h9:b:cANSI 
+"set guifont=Terminus:h14:cANSI 
+"set guifont=Terminus:h12:b:cANSI 
+set guifont=Terminus:h14:cANSI 
+
+" hi Comment guifg=#777777 guibg=NONE
+hi VertSplit guibg=NONE
+set fillchars+=vert:\ 
+" highlight ColorColumn term=reverse ctermbg=NONE cterm=underline guibg=#181A1A
+hi clear ColorColumn
+set colorcolumn=81
+
+" --- Highlight last search :D :D :D ---
+set hlsearch
+
+"hi Normal guibg=#000000
+hi clear StatusLine
+hi clear StatusLineNC
+hi StatusLine   ctermfg=black guifg=#404040 guibg=#171717
+hi StatusLineNC ctermfg=black guifg=#404040 guibg=#171717
+
+set guicursor=n-v-c:block-Cursor-blinkwait0-blinkoff0-blinkon0
+
+    
+" --- Color column on/off ---
+let colorColumnIsOn = 0
+function! ToggleColorColumn()
+    if g:colorColumnIsOn
+        let g:colorColumnIsOn = 0
+        execute "hi clear ColorColumn"
+    else
+        let g:colorColumnIsOn = 1
+        execute "hi ColorColumn guibg=#181A1A"
+    endif
+endfunction
+
+nnoremap <C-L> :call ToggleColorColumn()<CR>
+
+let g:netrw_sort_sequence='[\/]$,*'
+nnoremap <C-c> <silent><C-c>
+
+if has("gui_running")
+  autocmd GUIEnter * set vb t_vb=
+  autocmd GUIEnter * set noerrorbells
+endif
+
+" https://github.com/derekmcloughlin/gvimfullscreen_win32
+map <F11> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR> 
+
+
+
