@@ -1,6 +1,41 @@
 set encoding=utf-8
+set scroll=10
+set scrolloff=999
+set nofoldenable
 
-colorscheme Base2Tone_DrawbridgeDark
+" --- Dark color schemes ---
+" color Base2Tone_MeadowDark
+" color marklar
+" color inori
+" color duotone-dark
+" color duotone-darkmeadow
+" color greenvision
+" color lodestone
+" color madeofcode
+" color monochrome
+" color no_quarter
+" color phoenix 
+" color tetragrammaton
+" color tesla
+color preto_mod
+
+" --- Light color schemes ---
+" color editplus
+" color emacs
+" color enigma
+" color github
+" color gravity
+" color guepardo
+" color hybrid-light
+" color hybrid
+" color laederon
+" color mac_classic
+" color newsprint
+" color simplon
+" color scala
+" color reliable
+" color print_bw
+" color pride
 
 " --- Dear Mr. Touchpad, gå och dra något gammalt över dig.
 set mouse=
@@ -17,16 +52,13 @@ set sessionoptions-=options
 " --- Highlight last search :D :D :D ---
 set hlsearch
 
-hi clear StatusLine
-hi clear StatusLineNC
-hi StatusLine   ctermfg=black guifg=#404040 guibg=#171717
-hi StatusLineNC ctermfg=black guifg=#404040 guibg=#171717
-
-" hi Comment guifg=#777777 guibg=NONE hi VertSplit guibg=NONE
+" --- colorscheme overrides ---
+" hi clear StatusLine
+" hi clear StatusLineNC
+" hi StatusLine   ctermfg=black guifg=#404040 guibg=#171717
+" hi StatusLineNC ctermfg=black guifg=#404040 guibg=#171717
+hi VertSplit guibg=NONE
 set fillchars+=vert:\ 
-" highlight ColorColumn term=reverse ctermbg=NONE cterm=underline guibg=#181A1A
-"hi clear ColorColumn
-"set colorcolumn=81
 hi ColorColumn guibg=#181A1A
 
 " --- Color column on/off ---
@@ -45,9 +77,12 @@ nnoremap <C-L> :call ToggleColorColumn()<CR>
 
 " --- macvim gui settings ---
 if has("gui_running")
-  set guioptions=
-  set transparency=5
-  autocmd GUIEnter * set vb t_vb=
-  autocmd GUIEnter * set noerrorbells
+    set guioptions=
+    set transparency=5
+    autocmd GUIEnter * set vb t_vb=
+    autocmd GUIEnter * set noerrorbells
+    set fullscreen
+    so ~/macvimsession
+    autocmd VimEnter * wincmd w
 endif
 
