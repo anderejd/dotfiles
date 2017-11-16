@@ -15,6 +15,7 @@ call vundle#begin('$USERPROFILE/vimfiles/bundle/')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'rust-lang/rust.vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -33,9 +34,6 @@ Plugin 'VundleVim/Vundle.vim'
 " different version somewhere else.
 "Plugin 'ascenator/L9', {'name': 'newL9'}
 
-Plugin 'rust-lang/rust.vim'
-Plugin 'racer-rust/vim-racer'
-
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -50,7 +48,6 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-
 "----------------------
 " VUNDLE CONFIG - END
 "----------------------
@@ -64,6 +61,10 @@ set ruler
 set shiftwidth=8
 set smartindent
 set tabstop=8
+set tw=80
+
+" --- Do NOT put two spaces after . when reflowing text!
+set nojoinspaces
 
 " --- dont create .swp files please ---
 set noswapfile
@@ -72,12 +73,7 @@ set noswapfile
 set bs=2
 
 " --- GVIM settings ---
-set guioptions-=T
-set guioptions-=m
-set guioptions-=l
-set guioptions-=r
-set guioptions-=L
-set guioptions-=R
+set guioptions=
 
 " Autoformat numbered lists, :help fo-table
 set fo+=n
@@ -144,30 +140,36 @@ augroup filetypedetect
 augroup END 
 
 function! SetActiveBufferDefaults()
-    setlocal cursorline
-    match Conditional /[(){}\][]/
+    "setlocal cursorline
+    "match Conditional /[(){}\][]/
 endfunction
 
-augroup CursorLine
-  au!
-  "au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  au VimEnter,WinEnter,BufWinEnter * call SetActiveBufferDefaults()
-  "au VimEnter,WinEnter,BufWinEnter * setlocal cursorcolumn
-  au WinLeave * setlocal nocursorline
-  "au WinLeave * setlocal nocursorcolumn
+"augroup CursorLine
+"  au!
+"  au VimEnter,WinEnter,BufWinEnter * call SetActiveBufferDefaults()
+"  au WinLeave * setlocal nocursorline
+"augroup END
+
+augroup AuBufferDefault
+	au!
+	au VimEnter,WinEnter,BufWinEnter * call SetActiveBufferDefaults()
 augroup END
 
 " set background=light
 "colorscheme molokai
-colorscheme monokai_mod
+"colorscheme monokai_mod
 "colorscheme solarized
+"color preto_mod
+color Base2Tone_ForestDark
 "set guifont=Consolas:h9:b:cANSI 
 "set guifont=Terminus:h14:cANSI 
 "set guifont=Terminus:h12:b:cANSI 
-set guifont=Terminus:h14:cANSI 
+"set guifont=Terminus:h12:cANSI 
+"set guifont=Source_Code_Pro:h13:cANSI 
+set guifont=Consolas:h11:cANSI:qDRAFT
 
 " hi Comment guifg=#777777 guibg=NONE
-hi VertSplit guibg=NONE
+hi VertSplit guibg=NONE guifg=black
 set fillchars+=vert:\ 
 " highlight ColorColumn term=reverse ctermbg=NONE cterm=underline guibg=#181A1A
 hi clear ColorColumn
@@ -181,6 +183,7 @@ hi clear StatusLine
 hi clear StatusLineNC
 hi StatusLine   ctermfg=black guifg=#404040 guibg=#171717
 hi StatusLineNC ctermfg=black guifg=#404040 guibg=#171717
+hi Cursor guibg=green guifg=black
 
 set guicursor=n-v-c:block-Cursor-blinkwait0-blinkoff0-blinkon0
 
@@ -211,4 +214,6 @@ endif
 map <F11> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR> 
 
 
+" Allow correct reflow of triple slash doc comments.
+autocmd Filetype c,cpp,rs set comments^=:///
 
